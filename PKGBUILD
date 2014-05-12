@@ -22,27 +22,13 @@ fi
 url='http://www.oracle.com/technetwork/java/index.html'
 license=('custom')
 # TODO add support for i686
-source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_build}/jdk-${pkgver}-linux-${_JARCH}.tar.gz"
-        'derby.conf'
-        'derby.service'
-        'java-mission-control.desktop'
-        'java-monitoring-and-management-console.desktop'
-        'java-policy-settings.desktop'
-        'java-visualvm.desktop'
-        'javaws-launcher'
-        'jdk.csh'
-        'jdk.sh')
+source=(http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_build}/jdk-${pkgver}-linux-${_JARCH}.tar.gz
+        jconsole-8-oracle.desktop
+        policytool-8-oracle.desktop)
 
 sha256sums=('44901389e9fb118971534ad0f58558ba8c43f315b369117135bd6617ae631edc'
-            'd6d69b7276e18459d1ee3a4a4ed8e5416a6ca0f7751b674776cc08a6bd0f0665'
-            'de08c2eb2de1e00dbba2e8d86319a87af6897d67987a822df8eeba7993b53ec5'
-            '00378bacf08dae0b66bd2162e8848a3b785b6e2b50b64f106063168b8675efec'
             '822863cab818dc0d5106975f2ad3209e8cbb6f93bd45920ea0488a0fc1c271c6'
-            '13a0eab88c2ecdbfc705e972df865c318d1684bdd80c96b460f881dfc52d6316'
-            'f97a54155ceed7f774dd27e25c2300a22e2a77ad46f202da4b108f3c329b4d2e'
-            '5a43bf54553ea39c147a67935d68646806a5053fefd527bd69c546f4c884402e'
-            '97b967904d6a1009a8e993df5cb9d9e663f14d700583ad1cb832205594db4018'
-            'ebfbd8d12dfc5ce88a1e2970810319577e6a61ee926a8174ef782cf3a0c9aea4')
+            '13a0eab88c2ecdbfc705e972df865c318d1684bdd80c96b460f881dfc52d6316')
 
 DLAGENTS=('http::/usr/bin/curl -LC - -b "oraclelicense=a" -O')
 
@@ -92,7 +78,8 @@ package_jre8-oracle() {
   # FIXME sed desktop files so that they directly call /usr/lib/jvm/java-8-oracle/jre/bin/*
   mv ${pkgdir}${_jvmdir}/jre/lib/desktop/* ${pkgdir}/usr/share
   rmdir ${pkgdir}${_jvmdir}/jre/lib/desktop
-  # TODO add extra icons and desktop entries
+  # Extra desktop entries
+  install ${srcdir}/{jconsole,policytool}-8-oracle.desktop ${pkgdir}/usr/share/applications/
 
   # Set config files
   rm "${pkgdir}${_jvmdir}"/jre/lib/fontconfig.*.properties.src
