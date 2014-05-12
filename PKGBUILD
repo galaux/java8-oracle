@@ -34,6 +34,7 @@ DLAGENTS=('http::/usr/bin/curl -LC - -b "oraclelicense=a" -O')
 
 _jdkname=oracle8
 _jvmdir=/usr/lib/jvm/java-8-oracle
+_imgdir=jdk1.8.0_05
 
 package_jre8-oracle() {
   pkgdesc='Oracle Java 8 runtime environment'
@@ -69,7 +70,7 @@ package_jre8-oracle() {
   install=install_jre8-oracle.sh
 
   # FIXME try to use vars for this versin number
-  cd "${srcdir}/jdk1.8.0_05/jre"
+  cd "${srcdir}/${_imgdir}/jre"
 
   install -d -m 755 "${pkgdir}${_jvmdir}/jre/"
   cp -ra * "${pkgdir}${_jvmdir}/jre"
@@ -127,11 +128,49 @@ package_jre8-oracle() {
 package_jdk8-oracle() {
   pkgdesc='Oracle Java 8 development kit'
   # FIXME jdk dependencies
-  depends=('jre8-oracle')
+  depends=('java-environment-meta' 'jre8-oracle')
+  optdepends=('visualvm: to get tools for lightweight profiling capabilities')
   provides=('java-environment=8')
   # TODO backup=()
   # TODO install=
 
-  cd "${srcdir}/jdk1.8.0_05"
-  make DESTDIR="${pkgdir}/" install-pkg2
+  cd "${srcdir}/${_imgdir}"
+
+  # Main files
+  install -d -m 755 "${pkgdir}${_jvmdir}"
+
+  cp -a db include lib release "${pkgdir}${_jvmdir}"
+  rm -rf "${pkgdir}${_jvmdir}/lib/visualvm"
+  # TODO remove missioncontrol files and package it on its own - and add dependency here
+  # TODO same for derby: depend on AUR java-derby
+
+  # 'bin' files
+  pushd bin
+
+  # 'java-rmi.cgi' will be handled separately as it should not be in the PATH and has no man page
+  for b in $(ls | grep -v -e java-rmi.cgi -e jvisualvm); do
+    if [ -e ../jre/bin/${b} ]; then
+      # Provide a link of the jre binary in the jdk/bin/ directory
+      ln -s ../jre/bin/${b} "${pkgdir}${_jvmdir}/bin/${b}"
+    else
+      # Copy binary to jdk/bin/
+      install -D -m 755 ${b} "${pkgdir}${_jvmdir}/bin/${b}"
+      # Copy man page
+      install -D -m 644 ../man/man1/${b}.1 "${pkgdir}/usr/share/man/man1/${b}-${_jdkname}.1"       || true
+      install -D -m 644 ../man/ja/man1/${b}.1 "${pkgdir}/usr/share/man/ja/man1/${b}-${_jdkname}.1" || true
+    fi
+  done
+  popd
+
+  # Handling 'java-rmi.cgi' separately
+  install -D -m 755 bin/java-rmi.cgi "${pkgdir}${_jvmdir}/bin/java-rmi.cgi"
+
+  # Desktop files.
+  # TODO add them when switching to IcedTea
+  #install -m 644 "${srcdir}/icedtea-${_icedtea_ver}/jconsole.desktop" \
+  #  "${pkgdir}/usr/share/applications"
+
+  # link license
+  install -d -m 755 "${pkgdir}/usr/share/licenses/"
+  ln -sf /usr/share/licenses/${pkgbase} "${pkgdir}/usr/share/licenses/${pkgname}"
 }
