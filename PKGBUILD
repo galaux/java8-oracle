@@ -141,7 +141,9 @@ package_jdk8-oracle() {
 
   cp -a db include lib release "${pkgdir}${_jvmdir}"
   rm -rf "${pkgdir}${_jvmdir}/lib/visualvm"
-  # TODO remove missioncontrol files and package it on its own - and add dependency here
+  # TODO package 'mission control' on its own - and add optional dependency here
+  # (warning its a full Eclipse + plugin)
+  rm -rf "${pkgdir}${_jvmdir}/lib/missioncontrol"
   # TODO same for derby: depend on AUR java-derby
 
   # 'bin' files
