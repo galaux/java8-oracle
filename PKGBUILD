@@ -131,8 +131,6 @@ package_jdk8-oracle() {
   depends=('java-environment-meta' 'jre8-oracle')
   optdepends=('visualvm: to get tools for lightweight profiling capabilities')
   provides=('java-environment=8')
-  # TODO backup=()
-  # TODO install=
 
   cd "${srcdir}/${_imgdir}"
 
