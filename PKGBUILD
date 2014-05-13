@@ -127,9 +127,9 @@ package_jre8-oracle() {
 
 package_jdk8-oracle() {
   pkgdesc='Oracle Java 8 development kit'
-  # FIXME jdk dependencies
   depends=('java-environment-meta' 'jre8-oracle')
   optdepends=('visualvm: to get tools for lightweight profiling capabilities')
+  optdepends=('eclipse: to get "Oracle Mission Control" - need Mission Control Eclipse plugins')
   provides=('java-environment=8')
 
   cd "${srcdir}/${_imgdir}"
@@ -142,7 +142,10 @@ package_jdk8-oracle() {
   # TODO package 'mission control' on its own - and add optional dependency here
   # (warning its a full Eclipse + plugin)
   rm -rf "${pkgdir}${_jvmdir}/lib/missioncontrol"
-  # TODO same for derby: depend on AUR java-derby … in the meantime:
+  # TODO create package 'derby':
+  # - should provide all shell scripts in dir 'bin' along with license files
+  # - should depend on AUR java-derby
+  # … in the meantime:
   find "${pkgdir}${_jvmdir}" -name "*.bat" -delete
 
   # 'bin' files
