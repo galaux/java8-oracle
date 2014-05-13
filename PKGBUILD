@@ -151,6 +151,7 @@ package_jdk8-oracle() {
   # 'bin' files
   pushd bin
 
+  install -d -m 755 "${pkgdir}/usr/bin/"
   # 'java-rmi.cgi' will be handled separately as it should not be in the PATH and has no man page
   for b in $(ls | grep -v -e java-rmi.cgi -e jvisualvm); do
     if [ -e ../jre/bin/${b} ]; then
@@ -162,12 +163,21 @@ package_jdk8-oracle() {
       # Copy man page
       install -D -m 644 ../man/man1/${b}.1 "${pkgdir}/usr/share/man/man1/${b}-${_jdkname}.1"       || true
       install -D -m 644 ../man/ja/man1/${b}.1 "${pkgdir}/usr/share/man/ja/man1/${b}-${_jdkname}.1" || true
+      # Link from /bin/
+      ln -s ${_jvmdir}/bin/${b} "${pkgdir}/usr/bin/${b}"
     fi
   done
   popd
 
   # Handling 'java-rmi.cgi' separately
   install -D -m 755 bin/java-rmi.cgi "${pkgdir}${_jvmdir}/bin/java-rmi.cgi"
+
+  # Removing links that are already provided by java-environment-meta package
+  for b in appletviewer extcheck idlj jar jarsigner javac javadoc javah javap jcmd jconsole jdb \
+           jdeps jhat jinfo jmap jps jrunscript jsadebugd jstack jstat jstatd native2ascii rmic \
+           schemagen serialver wsgen wsimport xjc; do
+    unlink "${pkgdir}/usr/bin/${b}"
+  done
 
   # Desktop files.
   # TODO add them when switching to IcedTea
