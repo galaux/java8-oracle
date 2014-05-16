@@ -95,8 +95,10 @@ package_jre8-oracle() {
   install -d -m 755 "${pkgdir}"/usr/share/man/{,ja/}man1/
   for m in *; do
     # '|| true' because some man page do not exist for several binaries/links
-    install -m 644 ../../man/man1/${m}.1    "${pkgdir}/usr/share/man/man1/${m}-${_jdkname}.1"    || true
-    install -m 644 ../../man/ja/man1/${m}.1 "${pkgdir}/usr/share/man/ja/man1/${m}-${_jdkname}.1" || true
+    install -m 644 ../../man/man1/${m}.1    "${pkgdir}/usr/share/man/man1/${m}-${_jdkname}.1"    \
+      || true 2>/dev/null
+    install -m 644 ../../man/ja/man1/${m}.1 "${pkgdir}/usr/share/man/ja/man1/${m}-${_jdkname}.1" \
+      || true 2>/dev/null
   done
   popd
 
