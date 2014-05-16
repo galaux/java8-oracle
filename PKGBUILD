@@ -1,4 +1,5 @@
 # Maintainer: Guillaume ALAUX <guillaume at alaux dot net>
+# Contributor: Det
 pkgname=('jre8-oracle' 'jdk8-oracle')
 #pkgname=('jre8-oracle-headless' 'jre8-oracle' 'jdk8-oracle')
 pkgbase=java8-oracle
