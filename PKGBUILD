@@ -35,7 +35,7 @@ sha256sums=(${_sha256sum_jdk}
 
 DLAGENTS=('http::/usr/bin/curl -LC - -b "oraclelicense=a" -O')
 
-_jdkname=oracle8
+_jdkname=8-oracle
 _jvmdir=/usr/lib/jvm/java-8-oracle
 _imgdir=jdk1.8.0_05
 
