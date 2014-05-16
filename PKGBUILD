@@ -15,9 +15,11 @@ arch=('i686' 'x86_64')
 if [ "${CARCH}" = 'x86_64' ]; then
   _JARCH=x64
   _JARCH_ALT=amd64
+  _sha256sum_jdk='44901389e9fb118971534ad0f58558ba8c43f315b369117135bd6617ae631edc'
 else
   _JARCH=i586
   _JARCH_ALT=i386
+  _sha256sum_jdk='779f83efb8dc9ce7c1143ba9bbd38fa2d8a1c49dcb61f7d36972d37d109c5fc9'
 fi
 
 url='http://www.oracle.com/technetwork/java/index.html'
@@ -27,7 +29,7 @@ source=(http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_build}/jdk-${pk
         jconsole-8-oracle.desktop
         policytool-8-oracle.desktop)
 
-sha256sums=('44901389e9fb118971534ad0f58558ba8c43f315b369117135bd6617ae631edc'
+sha256sums=(${_sha256sum_jdk}
             '822863cab818dc0d5106975f2ad3209e8cbb6f93bd45920ea0488a0fc1c271c6'
             '13a0eab88c2ecdbfc705e972df865c318d1684bdd80c96b460f881dfc52d6316')
 
