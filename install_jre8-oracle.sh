@@ -1,4 +1,4 @@
-post_install() {
+update_desktop() {
   echo 'Updating desktop MIME database'
   update-desktop-database -q
 
@@ -12,10 +12,19 @@ post_install() {
   xdg-icon-resource forceupdate --theme LowContrast &>/dev/null || true
 }
 
+post_install() {
+  echo 'Trying to set java-8-oracle as default JDK'
+  /usr/bin/archlinux-java --try-set java-8-oracle
+
+  update_desktop
+}
+
 post_upgrade() {
   post_install "$@"
 }
 
 post_remove() {
-  post_install "$@"
+  /usr/bin/archlinux-java --try-unset java-8-oracle
+
+  update_desktop
 }
