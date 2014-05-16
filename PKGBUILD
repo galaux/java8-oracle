@@ -157,6 +157,7 @@ package_jdk8-oracle() {
   pushd bin
 
   install -d -m 755 "${pkgdir}/usr/bin/"
+  install -d -m 755 "${pkgdir}${_jvmdir}/bin/"
   # 'java-rmi.cgi' will be handled separately as it should not be in the PATH and has no man page
   for b in $(ls | grep -v -e java-rmi.cgi -e jvisualvm); do
     if [ -e ../jre/bin/${b} ]; then
