@@ -164,8 +164,10 @@ package_jdk8-oracle() {
       # Copy binary to jdk/bin/
       install -D -m 755 ${b} "${pkgdir}${_jvmdir}/bin/${b}"
       # Copy man page
-      install -D -m 644 ../man/man1/${b}.1 "${pkgdir}/usr/share/man/man1/${b}-${_jdkname}.1"       || true
-      install -D -m 644 ../man/ja/man1/${b}.1 "${pkgdir}/usr/share/man/ja/man1/${b}-${_jdkname}.1" || true
+      install -D -m 644 ../man/man1/${b}.1 "${pkgdir}/usr/share/man/man1/${b}-${_jdkname}.1"       \
+        || true 2>/dev/null
+      install -D -m 644 ../man/ja/man1/${b}.1 "${pkgdir}/usr/share/man/ja/man1/${b}-${_jdkname}.1" \
+        || true 2>/dev/null
       # Link from /bin/
       ln -s ${_jvmdir}/bin/${b} "${pkgdir}/usr/bin/${b}"
     fi
