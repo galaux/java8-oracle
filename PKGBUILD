@@ -136,6 +136,7 @@ package_jdk8-oracle() {
   optdepends=('visualvm: to get tools for lightweight profiling capabilities')
   optdepends=('eclipse: to get "Oracle Mission Control" - need Mission Control Eclipse plugins')
   provides=('java-environment=8')
+  install=install_jdk8-oracle.sh
 
   cd "${srcdir}/${_imgdir}"
 
