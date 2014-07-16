@@ -8,7 +8,7 @@ _minor=5
 _build=b13
 # FIXME pkgver to match Arch Linux JDK versioning scheme. Watch out for source
 pkgver=${_java_ver}u${_minor}
-pkgrel=1
+pkgrel=2
 
 arch=('i686' 'x86_64')
 # FIXME '_JARCH'
