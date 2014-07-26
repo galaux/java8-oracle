@@ -8,7 +8,7 @@ _minor=5
 _build=b13
 # FIXME pkgver to match Arch Linux JDK versioning scheme. Watch out for source
 pkgver=${_java_ver}u${_minor}
-pkgrel=2
+pkgrel=3
 
 arch=('i686' 'x86_64')
 # FIXME '_JARCH'
@@ -42,7 +42,7 @@ _imgdir=jdk1.8.0_05
 package_jre8-oracle() {
   pkgdesc='Oracle Java 8 runtime environment'
   # FIXME jre dependencies
-  depends=('java-runtime-headless-meta' 'java-runtime-meta' 'desktop-file-utils'
+  depends=('java-common' 'desktop-file-utils'
            'hicolor-icon-theme' 'libxrender' 'libxtst' 'shared-mime-info' 'xdg-utils')
   optdepends=('alsa-lib: sound'
               'ttf-dejavu: fonts')
@@ -132,9 +132,9 @@ package_jre8-oracle() {
 
 package_jdk8-oracle() {
   pkgdesc='Oracle Java 8 development kit'
-  depends=('java-environment-meta' 'jre8-oracle')
-  optdepends=('visualvm: to get tools for lightweight profiling capabilities')
-  optdepends=('eclipse: to get "Oracle Mission Control" - need Mission Control Eclipse plugins')
+  depends=("jre8-oracle=${pkgver}-${pkgrel}")
+  optdepends=('visualvm: to get tools for lightweight profiling capabilities'
+              'eclipse: to get "Oracle Mission Control" - need Mission Control Eclipse plugins')
   provides=('java-environment=8')
   install=install_jdk8-oracle.sh
 

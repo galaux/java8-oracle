@@ -22,8 +22,10 @@ post_upgrade() {
   post_install "$@"
 }
 
-post_remove() {
+pre_remove() {
   /usr/bin/archlinux-java --try-unset java-8-oracle/jre
+}
 
+post_remove() {
   update_desktop
 }
