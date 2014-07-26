@@ -33,6 +33,7 @@ sha256sums=(${_sha256sum_jdk}
             '822863cab818dc0d5106975f2ad3209e8cbb6f93bd45920ea0488a0fc1c271c6'
             '13a0eab88c2ecdbfc705e972df865c318d1684bdd80c96b460f881dfc52d6316')
 
+makedepends=('curl')
 DLAGENTS=('http::/usr/bin/curl -LC - -b "oraclelicense=a" -O')
 
 _jdkname=8-oracle
