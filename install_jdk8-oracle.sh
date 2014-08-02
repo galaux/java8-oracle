@@ -1,3 +1,5 @@
+this_java='java-7-oracle'
+
 update_desktop() {
   echo 'Updating desktop MIME database'
   update-desktop-database -q
@@ -13,21 +15,36 @@ update_desktop() {
 }
 
 post_install() {
-  /usr/bin/archlinux-java --try-set java-8-oracle
+  default=$(/usr/bin/archlinux-java get)
+  if [ -z "${default}" ]; then
+    /usr/bin/archlinux-java set ${this_java}
+  elif [ "${default/\/jre}" = "${this_java/\/jre}" ]; then
+    /usr/bin/archlinux-java fix
+  else
+    echo "Default Java environment is already set to '${default}'"
+    echo "To set '${this_java}' as default, consider using:"
+    echo "  archlinux-java set '${this_java}'"
+  fi
 
   update_desktop
 }
 
 post_upgrade() {
-  post_install "$@"
+  default=$(/usr/bin/archlinux-java get)
+  if [ -z "${default}" ]; then
+    /usr/bin/archlinux-java set ${this_java}
+  elif [ "${default/\/jre}" = "${this_java/\/jre}" ]; then
+    /usr/bin/archlinux-java fix
+  fi
+
+  update_desktop
 }
 
 pre_remove() {
-  /usr/bin/archlinux-java --try-unset java-8-oracle
-}
-
-post_remove() {
-  /usr/bin/archlinux-java --try-set java-8-oracle/jre
+  default=$(/usr/bin/archlinux-java get)
+  if [ "${default/\/jre}" = "${this_java/\/jre}" ]; then
+    /usr/bin/archlinux-java set ${this_java}/jre
+  fi
 
   update_desktop
 }
