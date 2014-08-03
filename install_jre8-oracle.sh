@@ -44,6 +44,7 @@ pre_remove() {
   default=$(/usr/bin/archlinux-java get)
   if [ "x${default/\/jre}" = "x${this_java/\/jre}" ]; then
     /usr/bin/archlinux-java unset
+    echo 'No Java environment is set anymore'
   fi
 }
 
