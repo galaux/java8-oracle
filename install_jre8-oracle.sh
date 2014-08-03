@@ -41,14 +41,12 @@ post_upgrade() {
 }
 
 pre_remove() {
-  /usr/bin/archlinux-java --try-unset java-8-oracle/jre
+  default=$(/usr/bin/archlinux-java get)
+  if [ "x${default/\/jre}" = "x${this_java/\/jre}" ]; then
+    /usr/bin/archlinux-java unset
+  fi
 }
 
 post_remove() {
-  default_link=$(readlink /usr/lib/jvm/java-default-runtime)
-  if [ "x${default_link/\/jre}" = "x${this_java/\/jre}" ]; then
-    /usr/bin/archlinux-java fix
-  fi
-
   update_desktop
 }
