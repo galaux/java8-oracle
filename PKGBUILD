@@ -4,28 +4,28 @@ pkgname=('jre8-oracle' 'jdk8-oracle')
 #pkgname=('jre8-oracle-headless' 'jre8-oracle' 'jdk8-oracle')
 pkgbase=java8-oracle
 _java_ver=8
-_minor=5
-_build=b13
+_update=11
+_build=12
 # FIXME pkgver to match Arch Linux JDK versioning scheme. Watch out for source
-pkgver=${_java_ver}u${_minor}
-pkgrel=3
+pkgver=${_java_ver}.u${_update}.b${_build}
+pkgrel=1
 
 arch=('i686' 'x86_64')
 # FIXME '_JARCH'
 if [ "${CARCH}" = 'x86_64' ]; then
   _JARCH=x64
   _JARCH_ALT=amd64
-  _sha256sum_jdk='44901389e9fb118971534ad0f58558ba8c43f315b369117135bd6617ae631edc'
+  _sha256sum_jdk='f3593b248b64cc53bf191f45b92a1f10e8c5099c2f84bd5bd5d6465dfd07a8e9'
 else
   _JARCH=i586
   _JARCH_ALT=i386
-  _sha256sum_jdk='779f83efb8dc9ce7c1143ba9bbd38fa2d8a1c49dcb61f7d36972d37d109c5fc9'
+  _sha256sum_jdk='3981e6fb7d35b20ac3c05ec56fb3798ac1cd872a9e968bb3d77a718af7b146d1'
 fi
 
 url='http://www.oracle.com/technetwork/java/index.html'
 license=('custom')
 # TODO add support for i686
-source=(http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_build}/jdk-${pkgver}-linux-${_JARCH}.tar.gz
+source=(http://download.oracle.com/otn-pub/java/jdk/${_java_ver}u${_update}-b${_build}/jdk-${_java_ver}u${_update}-linux-${_JARCH}.tar.gz
         jconsole-8-oracle.desktop
         policytool-8-oracle.desktop)
 
