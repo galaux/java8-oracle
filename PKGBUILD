@@ -47,7 +47,7 @@ package_jre8-oracle() {
            'hicolor-icon-theme' 'libxrender' 'libxtst' 'shared-mime-info' 'xdg-utils')
   optdepends=('alsa-lib: sound'
               'ttf-dejavu: fonts')
-  provides=('java-runtime-headless=8' 'java-runtime=8')
+  provides=('java-runtime-headless=8' 'java-runtime=8' 'java-runtime-headless-oracle=8' 'java-runtime-oracle=8')
   _backup_etc=(etc/java-8-oracle/${_JARCH_ALT}/jvm.cfg
                etc/java-8-oracle/${_JARCH_ALT}/server/Xusage.txt
                etc/java-8-oracle/calendars.properties
@@ -130,7 +130,7 @@ package_jdk8-oracle() {
   depends=("jre8-oracle=${pkgver}-${pkgrel}")
   optdepends=('visualvm: to get tools for lightweight profiling capabilities'
               'eclipse: to get "Oracle Mission Control" - need Mission Control Eclipse plugins')
-  provides=('java-environment=8')
+  provides=('java-environment=8' 'java-environment-oracle=8')
   install=install_jdk8-oracle.sh
 
   cd "${srcdir}/${_imgdir}"
