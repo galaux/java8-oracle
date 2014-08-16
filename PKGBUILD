@@ -7,8 +7,8 @@ _java_ver=8
 _update=11
 _build=31
 # FIXME pkgver to match Arch Linux JDK versioning scheme. Watch out for source
-pkgver=${_java_ver}.u${_update}.b${_build}
-pkgrel=1
+pkgver=${_java_ver}.u${_update}
+pkgrel=2
 
 arch=('i686' 'x86_64')
 # FIXME '_JARCH'
