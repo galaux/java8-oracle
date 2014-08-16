@@ -24,7 +24,6 @@ fi
 
 url='http://www.oracle.com/technetwork/java/index.html'
 license=('custom')
-# TODO add support for i686
 source=(http://download.oracle.com/otn-pub/java/jdk/${_java_ver}u${_update}-b${_build}/jdk-${_java_ver}u${_update}-linux-${_JARCH}.tar.gz
         jconsole-8-oracle.desktop
         policytool-8-oracle.desktop)
