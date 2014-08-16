@@ -5,7 +5,7 @@ pkgname=('jre8-oracle' 'jdk8-oracle')
 pkgbase=java8-oracle
 _java_ver=8
 _update=11
-_build=12
+_build=31
 # FIXME pkgver to match Arch Linux JDK versioning scheme. Watch out for source
 pkgver=${_java_ver}.u${_update}.b${_build}
 pkgrel=1
