@@ -38,7 +38,7 @@ DLAGENTS=('http::/usr/bin/curl -LC - -b "oraclelicense=a" -O')
 
 _jdkname=8-oracle
 _jvmdir=/usr/lib/jvm/java-8-oracle
-_imgdir=jdk1.8.0_05
+_imgdir="jdk1.8.0_$(printf '%.2d' ${_update})"
 
 package_jre8-oracle() {
   pkgdesc='Oracle Java 8 runtime environment'
